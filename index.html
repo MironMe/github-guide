@@ -1,496 +1,715 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Why GitHub Is Amazing</title>
-  <style>
-    :root {
-      --bg: #0b1020;
-      --bg2: #111827;
-      --panel: #121a2b;
-      --primary: #7dd3fc;
-      --accent: #8b5cf6;
-      --green: #34d399;
-      --text: #ecf8ff;
-      --muted: #b5c6d8;
-      --line: rgba(255,255,255,0.08);
-      --shadow: rgba(79, 70, 229, 0.35);
-    }
-
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background:
-        radial-gradient(circle at top left, rgba(125, 211, 252, 0.15), transparent 28%),
-        radial-gradient(circle at top right, rgba(139, 92, 246, 0.18), transparent 30%),
-        linear-gradient(180deg, var(--bg), var(--bg2));
-      color: var(--text);
-      line-height: 1.6;
-    }
-
-    .container {
-      width: min(1100px, calc(100% - 32px));
-      margin: 0 auto;
-    }
-
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      background: rgba(11, 16, 32, 0.8);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--line);
-    }
-
-    nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 18px 0;
-    }
-
-    .brand {
-      font-weight: 800;
-      letter-spacing: 1px;
-      color: var(--primary);
-      font-size: 1.2rem;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 22px;
-      flex-wrap: wrap;
-    }
-
-    .nav-links a {
-      color: var(--muted);
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    .nav-links a:hover { color: white; }
-
-    .hero {
-      padding: 90px 0 60px;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 30px;
-      align-items: center;
-    }
-
-    .eyebrow {
-      display: inline-block;
-      background: rgba(125, 211, 252, 0.12);
-      border: 1px solid rgba(125,211,252,0.3);
-      color: var(--primary);
-      padding: 8px 12px;
-      border-radius: 999px;
-      font-size: 0.8rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    h1 {
-      font-size: clamp(2.6rem, 6vw, 5rem);
-      line-height: 1.05;
-      margin: 18px 0;
-    }
-
-    .highlight {
-      color: var(--primary);
-      text-shadow: 0 0 14px rgba(125, 211, 252, 0.35);
-    }
-
-    .subtitle {
-      color: var(--muted);
-      font-size: 1.1rem;
-      max-width: 640px;
-    }
-
-    .cta-row {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-      margin-top: 26px;
-    }
-
-    .btn {
-      display: inline-block;
-      padding: 14px 22px;
-      border-radius: 12px;
-      text-decoration: none;
-      font-weight: 700;
-      transition: transform 0.15s ease;
-    }
-
-    .btn:hover { transform: translateY(-1px); }
-
-    .btn.primary {
-      background: linear-gradient(135deg, var(--primary), var(--accent));
-      color: #040b18;
-      box-shadow: 0 12px 28px var(--shadow);
-    }
-
-    .btn.secondary {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid var(--line);
-      color: var(--text);
-    }
-
-    .hero-card {
-      background: linear-gradient(180deg, rgba(18,26,43,0.94), rgba(17,24,39,0.9));
-      border: 1px solid var(--line);
-      border-radius: 22px;
-      padding: 22px;
-      box-shadow: 0 20px 45px rgba(0,0,0,0.25);
-    }
-
-    .mini-panel {
-      background: rgba(255,255,255,0.02);
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 14px 16px;
-      margin-bottom: 14px;
-    }
-
-    .mini-panel strong {
-      display: block;
-      margin-bottom: 4px;
-      color: var(--primary);
-    }
-
-    .code-box {
-      margin-top: 18px;
-      background: #0a111d;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 14px 16px;
-      font-family: Consolas, monospace;
-      color: #bbf7d0;
-      font-size: 0.92rem;
-      overflow-x: auto;
-    }
-
-    section {
-      padding: 36px 0;
-    }
-
-    .section-head {
-      margin-bottom: 25px;
-    }
-
-    .section-head h2 {
-      margin: 0 0 8px;
-      font-size: clamp(2rem, 4vw, 3rem);
-    }
-
-    .section-head p {
-      color: var(--muted);
-      margin: 0;
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 22px;
-    }
-
-    .card {
-      background: rgba(18,26,43,0.9);
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      padding: 22px;
-      box-shadow: 0 12px 24px rgba(0,0,0,0.18);
-    }
-
-    .icon {
-      width: 52px;
-      height: 52px;
-      display: grid;
-      place-items: center;
-      border-radius: 12px;
-      background: rgba(125,211,252,0.12);
-      border: 1px solid rgba(125,211,252,0.2);
-      margin-bottom: 12px;
-      font-size: 1.4rem;
-    }
-
-    .card h3 {
-      margin: 0 0 8px;
-      font-size: 1.25rem;
-    }
-
-    .card p {
-      margin: 0;
-      color: var(--muted);
-    }
-
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 18px;
-      margin-top: 18px;
-    }
-
-    .stat {
-      background: rgba(17,24,39,0.88);
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 22px 18px;
-      text-align: center;
-    }
-
-    .stat .big {
-      font-size: clamp(1.9rem, 4vw, 3rem);
-      font-weight: 800;
-      color: var(--primary);
-      display: block;
-      margin-bottom: 6px;
-    }
-
-    .stat span {
-      color: var(--muted);
-    }
-
-    .feature-split {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 28px;
-      align-items: center;
-    }
-
-    .feature-box {
-      background: rgba(18,26,43,0.9);
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      padding: 22px;
-    }
-
-    ul {
-      margin: 0;
-      padding-left: 18px;
-      color: var(--muted);
-      line-height: 1.9;
-    }
-
-    .quote {
-      background: linear-gradient(180deg, rgba(17,24,39,0.84), rgba(15,23,42,0.9));
-      border: 1px solid var(--line);
-      border-radius: 20px;
-      padding: 28px;
-      margin-top: 20px;
-      font-size: 1.1rem;
-      color: var(--text);
-    }
-
-    footer {
-      padding: 30px 0 60px;
-      text-align: center;
-      color: var(--muted);
-      border-top: 1px solid var(--line);
-      margin-top: 20px;
-    }
-
-    @media (max-width: 830px) {
-      .hero-grid, .feature-split, .cards, .stats-grid {
-        grid-template-columns: 1fr;
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ByteBrain AI // Zero Credits</title>
+    <style>
+      :root {
+        --bg: #060a0c;
+        --bg2: #0d1718;
+        --panel: rgba(12, 24, 23, 0.9);
+        --panel-strong: rgba(15, 28, 29, 0.96);
+        --green: #9ef7a0;
+        --green-deep: #5ff28f;
+        --green-soft: rgba(94, 242, 143, 0.12);
+        --lime: #c8ff98;
+        --text: #ebffe6;
+        --muted: #a8c7ad;
+        --line: rgba(158, 247, 160, 0.28);
+        --shadow: rgba(94, 242, 143, 0.28);
       }
 
-      nav {
-        flex-direction: column;
-        gap: 12px;
+      * { box-sizing: border-box; }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: "Courier New", Courier, monospace;
+        background:
+          radial-gradient(circle at top, rgba(94, 242, 143, 0.12), transparent 30%),
+          linear-gradient(180deg, var(--bg), var(--bg2));
+        color: var(--text);
+        line-height: 1.6;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background: repeating-linear-gradient(
+          180deg,
+          rgba(255,255,255,0.04),
+          rgba(255,255,255,0.04) 1px,
+          transparent 2px,
+          transparent 4px
+        );
+        pointer-events: none;
+        opacity: 0.3;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .container {
+        width: min(1180px, calc(100% - 28px));
+        margin: 0 auto;
+      }
+
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 30;
+        backdrop-filter: blur(8px);
+        background: rgba(6, 10, 12, 0.78);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        min-height: 72px;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--green);
+      }
+
+      .brand-mark {
+        width: 14px;
+        height: 14px;
+        border-radius: 3px;
+        background: linear-gradient(135deg, var(--green), var(--lime));
+        box-shadow: 0 0 18px rgba(158, 247, 160, 0.8);
       }
 
       .nav-links {
-        justify-content: center;
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        flex-wrap: wrap;
+        color: var(--muted);
+        font-size: 0.82rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .nav-links a:hover {
+        color: var(--green);
       }
 
       .hero {
-        padding-top: 60px;
+        padding: 44px 0 26px;
       }
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <div class="container">
-      <nav>
-        <div class="brand">GitHub</div>
-        <div class="nav-links">
-          <a href="#why">Why it's great</a>
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 28px;
+        align-items: center;
+      }
+
+      .kicker {
+        display: inline-block;
+        padding: 8px 14px;
+        border: 1px solid var(--line);
+        background: rgba(158, 247, 160, 0.06);
+        border-radius: 999px;
+        color: var(--green);
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        font-size: 0.72rem;
+        font-weight: 700;
+      }
+
+      h1 {
+        margin: 18px 0 16px;
+        font-size: clamp(2.8rem, 7vw, 6rem);
+        line-height: 0.94;
+        letter-spacing: -0.06em;
+        text-transform: uppercase;
+      }
+
+      .glow {
+        color: var(--green);
+        text-shadow: 0 0 20px rgba(158, 247, 160, 0.55);
+      }
+
+      .subhead {
+        max-width: 640px;
+        color: var(--muted);
+        font-size: 1.06rem;
+      }
+
+      .cta-row {
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+        margin-top: 26px;
+      }
+
+      .btn {
+        appearance: none;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 14px 22px;
+        font: inherit;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+      }
+
+      .btn:hover {
+        transform: translateY(-1px);
+      }
+
+      .btn.primary {
+        background: linear-gradient(135deg, var(--green), var(--lime));
+        color: #042b10;
+        box-shadow: 0 15px 26px rgba(94, 242, 143, 0.25);
+      }
+
+      .btn.secondary {
+        background: rgba(158, 247, 160, 0.04);
+        color: var(--text);
+      }
+
+      .terminal {
+        background: var(--panel-strong);
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        box-shadow: 0 24px 50px rgba(0,0,0,0.38), 0 0 25px rgba(94, 242, 143, 0.08);
+        overflow: hidden;
+      }
+
+      .terminal-header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 16px;
+        background: rgba(255,255,255,0.02);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        display: inline-block;
+      }
+
+      .dot.red { background: #ff7a7a; }
+      .dot.yellow { background: #ffd36e; }
+      .dot.green { background: var(--green); }
+
+      .terminal-body {
+        padding: 18px 18px 14px;
+      }
+
+      .status-row {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        margin-bottom: 16px;
+      }
+
+      .mini-status {
+        padding: 10px 12px;
+        border: 1px solid var(--line);
+        background: rgba(158, 247, 160, 0.04);
+        border-radius: 10px;
+        color: var(--muted);
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .mini-status strong {
+        display: block;
+        color: var(--green);
+        margin-bottom: 4px;
+      }
+
+      .prompt-shell {
+        border: 1px solid var(--line);
+        background: rgba(14, 22, 22, 0.96);
+        border-radius: 12px;
+        padding: 14px 14px 12px;
+      }
+
+      .prompt-label {
+        color: var(--green);
+        font-size: 0.72rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+      }
+
+      textarea {
+        width: 100%;
+        min-height: 118px;
+        background: transparent;
+        border: none;
+        resize: vertical;
+        color: var(--text);
+        font: inherit;
+        font-size: 1rem;
+        outline: none;
+      }
+
+      textarea::placeholder {
+        color: rgba(235, 255, 230, 0.45);
+      }
+
+      .prompt-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        margin-top: 12px;
+      }
+
+      .chip-row {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      .chip {
+        border: 1px solid var(--line);
+        background: rgba(158, 247, 160, 0.04);
+        color: var(--muted);
+        border-radius: 999px;
+        padding: 7px 10px;
+        font-size: 0.72rem;
+        cursor: pointer;
+      }
+
+      .chip:hover {
+        color: var(--green);
+      }
+
+      main {
+        padding: 12px 0 48px;
+      }
+
+      section {
+        padding: 28px 0;
+      }
+
+      .section-heading {
+        margin-bottom: 18px;
+      }
+
+      .section-heading h2 {
+        margin: 0 0 8px;
+        font-size: clamp(2rem, 4vw, 3.2rem);
+        letter-spacing: -0.04em;
+        text-transform: uppercase;
+      }
+
+      .section-heading p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .card {
+        background: rgba(12, 24, 23, 0.85);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 22px 20px;
+      }
+
+      .card-number {
+        color: var(--green);
+        font-size: 0.7rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+      }
+
+      .card h3 {
+        margin: 0 0 10px;
+        font-size: 1.2rem;
+        letter-spacing: 0.02em;
+      }
+
+      .card p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .demo-wrap {
+        background: rgba(12, 24, 23, 0.8);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 20px;
+      }
+
+      .question-box {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-bottom: 20px;
+      }
+
+      .question-box label {
+        color: var(--green);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+      }
+
+      .input-shell {
+        display: flex;
+        flex: 1;
+        min-width: 240px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: rgba(6, 10, 12, 0.8);
+        overflow: hidden;
+      }
+
+      .input-shell input {
+        flex: 1;
+        background: transparent;
+        border: none;
+        color: var(--text);
+        font: inherit;
+        padding: 14px 16px;
+        outline: none;
+      }
+
+      .response-box {
+        border: 1px solid var(--line);
+        background: rgba(6, 10, 12, 0.8);
+        border-radius: 14px;
+        padding: 18px 20px;
+        min-height: 180px;
+      }
+
+      .response-label {
+        color: var(--green);
+        font-size: 0.72rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+      }
+
+      .response-box p {
+        margin: 0;
+        color: var(--text);
+        font-size: 1rem;
+      }
+
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 14px;
+        margin-top: 14px;
+      }
+
+      .stat {
+        border: 1px solid var(--line);
+        background: rgba(12, 24, 23, 0.7);
+        border-radius: 16px;
+        padding: 18px 16px;
+        text-align: center;
+      }
+
+      .stat .big {
+        display: block;
+        color: var(--green);
+        font-size: clamp(1.8rem, 4vw, 2.8rem);
+        line-height: 1.1;
+      }
+
+      .stat .small {
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        font-size: 0.72rem;
+      }
+
+      footer {
+        padding: 18px 0 34px;
+        color: var(--muted);
+        text-align: center;
+        border-top: 1px solid var(--line);
+      }
+
+      @media (max-width: 900px) {
+        .hero-grid,
+        .cards,
+        .stats {
+          grid-template-columns: 1fr;
+        }
+
+        .nav {
+          flex-direction: column;
+          justify-content: center;
+          padding: 14px 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container nav">
+        <div class="brand">
+          <span class="brand-mark"></span>
+          ByteBrain
+        </div>
+        <nav class="nav-links" aria-label="Main navigation">
+          <a href="#ai-demo">Ask</a>
           <a href="#features">Features</a>
           <a href="#stats">Stats</a>
-          <a href="#build">Build</a>
-        </div>
-      </nav>
-    </div>
-  </header>
+          <a href="#stack">Stack</a>
+        </nav>
+      </div>
+    </header>
 
-  <main>
     <section class="hero">
       <div class="container hero-grid">
         <div>
-          <div class="eyebrow">Powerful. Simple. Free.</div>
-          <h1>GitHub helps people build <span class="highlight">amazing things</span> together.</h1>
-          <p class="subtitle">
-            GitHub is where developers, students, creators, and teams store projects, track changes,
-            ship software, and turn ideas into real products. It makes coding collaborative, organized,
-            and easier to scale.
+          <div class="kicker">Retro AI Terminal</div>
+          <h1>Ask the <span class="glow">machine</span> anything.</h1>
+          <p class="subhead">
+            A zero-credit, zero-signup AI experience built as a retro browser demo. It is fast,
+            playful, and ready for your next big idea.
           </p>
           <div class="cta-row">
-            <a class="btn primary" href="#why">Why people love it</a>
-            <a class="btn secondary" href="#build">How it helps you</a>
+            <a class="btn primary" href="#ai-demo">Launch Console</a>
+            <a class="btn secondary" href="#features">View Features</a>
           </div>
         </div>
 
-        <div class="hero-card">
-          <div class="mini-panel">
-            <strong>Code</strong>
-            Save every version of your project
+        <div class="terminal" aria-label="AI console preview">
+          <div class="terminal-header">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
           </div>
-          <div class="mini-panel">
-            <strong>Collab</strong>
-            Work with teammates in real time
-          </div>
-          <div class="mini-panel">
-            <strong>Deploy</strong>
-            Launch websites and apps easily
-          </div>
-          <div class="mini-panel">
-            <strong>Track</strong>
-            Manage issues, ideas, and projects
-          </div>
-
-          <div class="code-box">
-            git push origin main
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="why">
-      <div class="container">
-        <div class="section-head">
-          <h2>Why GitHub is so good</h2>
-          <p>It gives developers a fast, secure, and organized way to build software.</p>
-        </div>
-
-        <div class="cards">
-          <div class="card">
-            <div class="icon">💾</div>
-            <h3>Version control</h3>
-            <p>
-              GitHub tracks every change you make so you can undo mistakes, compare versions,
-              and safely experiment without losing progress.
-            </p>
-          </div>
-
-          <div class="card">
-            <div class="icon">🤝</div>
-            <h3>Collaboration</h3>
-            <p>
-              Teams can work together on the same project at the same time, comment on code,
-              review pull requests, and merge improvements cleanly.
-            </p>
-          </div>
-
-          <div class="card">
-            <div class="icon">🚀</div>
-            <h3>Easy deployment</h3>
-            <p>
-              You can publish websites for free with GitHub Pages, host docs, and share projects
-              with the world without paying for complicated hosting.
-            </p>
+          <div class="terminal-body">
+            <div class="status-row">
+              <div class="mini-status"><strong>Offline</strong> Ready</div>
+              <div class="mini-status"><strong>ZERO</strong> Credits</div>
+            </div>
+            <div class="prompt-shell">
+              <div class="prompt-label">Input / Prompt</div>
+              <textarea readonly>How can I build a small retro AI website that feels futuristic?</textarea>
+              <div class="prompt-actions">
+                <div class="chip-row">
+                  <span class="chip">retro</span>
+                  <span class="chip">ideas</span>
+                  <span class="chip">code</span>
+                </div>
+                <button class="btn primary" style="padding: 10px 14px; border-radius: 10px; font-size: 0.7rem;">Run</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="features">
-      <div class="container">
-        <div class="section-head">
-          <h2>Built for creators and teams</h2>
-          <p>GitHub is more than a place to store code. It is a full workspace for building.</p>
-        </div>
-
-        <div class="feature-split">
-          <div class="feature-box">
-            <ul>
-              <li>Code repositories for projects, apps, and games</li>
-              <li>Issue tracking so you can plan tasks and bugs</li>
-              <li>Pull requests to review changes before publishing</li>
-              <li>Projects boards for organizing work visually</li>
-              <li>Discussions and docs for helping a community</li>
-              <li>Actions for automating builds and deployment</li>
-            </ul>
+    <main>
+      <section id="features">
+        <div class="container">
+          <div class="section-heading">
+            <h2>Built for curiosity</h2>
+            <p>Everything you need for a simple, free, retro AI experience.</p>
           </div>
 
-          <div class="feature-box">
-            <ul>
-              <li>Works for solo creators, students, startups, and big companies</li>
-              <li>Lets you learn from open source projects</li>
-              <li>Helps you build portfolios and showcase your work</li>
-              <li>Stores your work online so it is always accessible</li>
-              <li>Supports public and private projects</li>
-              <li>Used by millions of developers around the world</li>
-            </ul>
+          <div class="cards">
+            <article class="card">
+              <div class="card-number">01</div>
+              <h3>Zero Credits</h3>
+              <p>No paywalls, no subscription lock, and no hidden cost wall. It is built for free experimentation.</p>
+            </article>
+            <article class="card">
+              <div class="card-number">02</div>
+              <h3>Retro Mood</h3>
+              <p>Old-school terminal styling, neon accents, and an unforgettable 80s-inspired interface.</p>
+            </article>
+            <article class="card">
+              <div class="card-number">03</div>
+              <h3>Offline Demo</h3>
+              <p>Runs locally in the browser with no backend required. Perfect for mockups and portfolio sites.</p>
+            </article>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section id="stats">
-      <div class="container">
-        <div class="section-head">
-          <h2>Why it matters</h2>
-          <p>GitHub has become one of the biggest tools in software development.</p>
-        </div>
+      <section id="ai-demo">
+        <div class="container">
+          <div class="section-heading">
+            <h2>Ask the console</h2>
+            <p>Type your question and get a quick, playful response in retro mode.</p>
+          </div>
 
-        <div class="stats-grid">
-          <div class="stat">
-            <span class="big">100M+</span>
-            <span>Developers</span>
-          </div>
-          <div class="stat">
-            <span class="big">90M+</span>
-            <span>Repositories</span>
-          </div>
-          <div class="stat">
-            <span class="big">3.7M+</span>
-            <span>Organizations</span>
-          </div>
-          <div class="stat">
-            <span class="big">Free</span>
-            <span>For basic hosting</span>
+          <div class="demo-wrap">
+            <div class="question-box">
+              <label for="promptInput">Prompt</label>
+              <div class="input-shell">
+                <input id="promptInput" type="text" placeholder="Ask anything..." value="How do I make my project stand out?" />
+              </div>
+              <button id="askBtn" class="btn primary">Ask</button>
+            </div>
+
+            <div class="response-box" aria-live="polite">
+              <div class="response-label">AI Output</div>
+              <p id="responseText">The best projects stand out by being clear, useful, and memorable. Keep it simple, ship early, and make it feel alive.</p>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section id="build">
-      <div class="container">
-        <div class="section-head">
-          <h2>How GitHub helps you build</h2>
-          <p>It turns a rough idea into a real project you can share, improve, and grow.</p>
+      <section id="stats">
+        <div class="container">
+          <div class="section-heading">
+            <h2>Power in numbers</h2>
+            <p>Small interface, big energy.</p>
+          </div>
+
+          <div class="stats">
+            <div class="stat">
+              <span class="big">0</span>
+              <span class="small">Credits</span>
+            </div>
+            <div class="stat">
+              <span class="big">1</span>
+              <span class="small">Console</span>
+            </div>
+            <div class="stat">
+              <span class="big">∞</span>
+              <span class="small">Ideas</span>
+            </div>
+            <div class="stat">
+              <span class="big">∞</span>
+              <span class="small">Fun</span>
+            </div>
+          </div>
         </div>
+      </section>
 
-        <div class="quote">
-          "GitHub is like a digital workshop for software. You can write code, save versions,
-          collaborate with others, launch projects, and learn from the world's best developers."
+      <section id="stack">
+        <div class="container">
+          <div class="section-heading">
+            <h2>Stacked for speed</h2>
+            <p>Fast static front-end and a bright retro vibe.</p>
+          </div>
+          <div class="cards">
+            <article class="card">
+              <div class="card-number">HTML</div>
+              <h3>Structure</h3>
+              <p>Simple, clean, and easy to deploy on any static host.</p>
+            </article>
+            <article class="card">
+              <div class="card-number">CSS</div>
+              <h3>Retro Style</h3>
+              <p>Dark neon surfaces, scanlines, glow effects, and a terminal feel.</p>
+            </article>
+            <article class="card">
+              <div class="card-number">JS</div>
+              <h3>Prompt Logic</h3>
+              <p>Smart local responses that make the page feel alive without a server.</p>
+            </article>
+          </div>
         </div>
-      </div>
-    </section>
-  </main>
+      </section>
+    </main>
 
-  <footer>
-    GitHub is powerful because it helps people create, learn, ship, and improve — together.
-  </footer>
-</body>
+    <footer>
+      ByteBrain // Ask. Build. Repeat.
+    </footer>
+
+    <script>
+      const promptInput = document.getElementById('promptInput');
+      const askBtn = document.getElementById('askBtn');
+      const responseText = document.getElementById('responseText');
+
+      const cannedAnswers = [
+        "The best projects feel useful, clear, and alive. Make your idea simple enough to explain in one sentence, then build the first version fast.",
+        "Start small and keep the core experience obvious. A focused tool with a strong vibe is better than a giant idea that nobody can understand.",
+        "Make the design memorable by leaning into contrast, motion, and personality. Good interfaces feel exciting before a user even reads a word.",
+        "The smartest move is to build a prototype, test it, and improve the parts people actually care about. Real feedback beats guessing every time.",
+        "Think in terms of momentum: solve one real problem, ship the first version, and let the product grow naturally from real use.",
+        "A great project tells a story. It answers: what does it do, why it matters, and why would anyone care enough to try it today?",
+        "Keep the code clean, the message clear, and the experience playful. People remember the feeling your product gives them.",
+        "If you want attention, create something that feels distinct. A memorable identity, a strong landing page, and a clear promise go a very long way."
+      ];
+
+      function generateResponse(prompt) {
+        const normalized = prompt.toLowerCase();
+
+        if (normalized.includes('code') || normalized.includes('build') || normalized.includes('website')) {
+          return "Build the first layer in plain HTML and CSS, then make it feel alive with small interactive details. Simplicity first, polish second, and a strong visual identity always helps.";
+        }
+
+        if (normalized.includes('idea') || normalized.includes('project')) {
+          return "Pick one specific problem, not ten. A small product with a clear mission is easier to explain, easier to test, and much more likely to grow into something real.";
+        }
+
+        if (normalized.includes('design') || normalized.includes('look') || normalized.includes('style')) {
+          return "Strong design does not need to be loud. It needs to be bold where it matters: contrast, spacing, a clear headline, and visual rhythm that guides the eye.";
+        }
+
+        if (normalized.includes('business') || normalized.includes('grow') || normalized.includes('launch')) {
+          return "Launch early, collect real feedback, and improve based on what users actually do. Momentum is built through experiments that show clear value.";
+        }
+
+        if (normalized.includes('story') || normalized.includes('write') || normalized.includes('content')) {
+          return "Good storytelling is clear, specific, and emotionally resonant. Lead with the problem, show the promise, and end with an invitation to explore.";
+        }
+
+        const randomIndex = Math.floor(Math.random() * cannedAnswers.length);
+        return cannedAnswers[randomIndex];
+      }
+
+      function handleAsk() {
+        const prompt = promptInput.value.trim();
+        if (!prompt) {
+          promptInput.focus();
+          return;
+        }
+
+        responseText.textContent = 'Thinking...';
+
+        setTimeout(() => {
+          responseText.textContent = generateResponse(prompt);
+        }, 350);
+      }
+
+      askBtn.addEventListener('click', handleAsk);
+      promptInput.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+          event.preventDefault();
+          handleAsk();
+        }
+      });
+    </script>
+  </body>
 </html>
